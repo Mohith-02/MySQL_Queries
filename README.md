@@ -39,6 +39,7 @@ GROUP BY payment_method;
 -- Project Question 
 **#2: Identify the highest-rated category in each branch**
 -- Display the branch, category, and avg rating
+```sql
 SELECT branch, category, avg_rating
 FROM (
     SELECT 
@@ -50,8 +51,10 @@ FROM (
     GROUP BY branch, category
 ) AS ranked
 WHERE rank = 1;
+```
 
 -- **Q3: Identify the busiest day for each branch based on the number of transactions**
+```sql
 SELECT branch, day_name, no_transactions
 FROM (
     SELECT 
@@ -63,15 +66,17 @@ FROM (
     GROUP BY branch, day_name
 ) AS ranked
 WHERE rank = 1;
-
+```
 -- **Q4: Calculate the total quantity of items sold per payment method**
+```sql
 SELECT 
     payment_method,
     SUM(quantity) AS no_qty_sold
 FROM walmart
 GROUP BY payment_method;
-
+```
 -- **Q5: Determine the average, minimum, and maximum rating of categories for each city**
+```sql
 SELECT 
     city,
     category,
@@ -80,16 +85,18 @@ SELECT
     AVG(rating) AS avg_rating
 FROM walmart
 GROUP BY city, category;
-
+```
 --** Q6: Calculate the total profit for each category**
+```sql
 SELECT 
     category,
     SUM(unit_price * quantity * profit_margin) AS total_profit
 FROM walmart
 GROUP BY category
 ORDER BY total_profit DESC;
-
+```
 -- **Q7: Determine the most common payment method for each branch**
+```sql
 WITH cte AS (
     SELECT 
         branch,
@@ -102,8 +109,9 @@ WITH cte AS (
 SELECT branch, payment_method AS preferred_payment_method
 FROM cte
 WHERE rank = 1;
-
+```
 -- **Q8: Categorize sales into Morning, Afternoon, and Evening shifts**
+```sql
 SELECT
     branch,
     CASE 
@@ -115,8 +123,9 @@ SELECT
 FROM walmart
 GROUP BY branch, shift
 ORDER BY branch, num_invoices DESC;
-
+```
 -- **Q9: Identify the 5 branches with the highest revenue decrease ratio from last year to current year (e.g., 2022 to 2023)**
+```sql
 WITH revenue_2022 AS (
     SELECT 
         branch,
@@ -143,3 +152,4 @@ JOIN revenue_2023 AS r2023 ON r2022.branch = r2023.branch
 WHERE r2022.revenue > r2023.revenue
 ORDER BY revenue_decrease_ratio DESC
 LIMIT 5;
+```

@@ -27,12 +27,14 @@ SELECT MIN(quantity) FROM walmart;
 
 -- Business Problem 
 **Q1: Find different payment methods, number of transactions, and quantity sold by payment method**
+```sql
 SELECT 
     payment_method,
     COUNT(*) AS no_payments,
     SUM(quantity) AS no_qty_sold
 FROM walmart
 GROUP BY payment_method;
+```
 
 -- Project Question 
 **#2: Identify the highest-rated category in each branch**
